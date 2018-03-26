@@ -20,7 +20,10 @@
         <activity android:name=".AnimatorActivity" />
         <activity android:name=".TransitionActivity" />
         <activity android:name=".CustomAnimationActivity" />
-        <activity android:name=".MultiPropertyActivity"></activity>
+        <activity android:name=".MultiPropertyActivity" />
+        <activity android:name=".TranslateActivity" />
+        <activity android:name=".Translate2Activity" />
+        <activity android:name=".ImageActivity"></activity>
     </application>
 
 </manifest>

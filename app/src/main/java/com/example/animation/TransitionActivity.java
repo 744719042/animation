@@ -1,5 +1,7 @@
 package com.example.animation;
 
+import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.ChangeBounds;
@@ -7,10 +9,12 @@ import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Scene;
 import android.transition.Slide;
+import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 public class TransitionActivity extends AppCompatActivity implements View.OnClickListener {
     private FrameLayout mContainer;
@@ -19,6 +23,9 @@ public class TransitionActivity extends AppCompatActivity implements View.OnClic
     private Button fade;
     private Button slide;
     private Button explode;
+    private Button startSlidePage;
+    private Button startExplodePage;
+    private ImageView image;
     private boolean isScene2 = false;
     private boolean isGone = false;
 
@@ -40,6 +47,12 @@ public class TransitionActivity extends AppCompatActivity implements View.OnClic
         slide.setOnClickListener(this);
         explode = (Button) findViewById(R.id.explode);
         explode.setOnClickListener(this);
+        startSlidePage = (Button) findViewById(R.id.startSlidePage);
+        startSlidePage.setOnClickListener(this);
+        startExplodePage = (Button) findViewById(R.id.startExplodePage);
+        startExplodePage.setOnClickListener(this);
+        image = (ImageView) findViewById(R.id.image);
+        image.setOnClickListener(this);
         scene1 = Scene.getSceneForLayout(mContainer, R.layout.scene_layout_one, this);
         scene2 = Scene.getSceneForLayout(mContainer, R.layout.scene_layout_two, this);
     }
@@ -81,6 +94,24 @@ public class TransitionActivity extends AppCompatActivity implements View.OnClic
         } else if (v == explode) {
             TransitionManager.beginDelayedTransition(mContainer, new Explode());
             processViews();
+        } else if (v == startSlidePage) {
+            View view1 = findViewById(R.id.first);
+            Intent intent = new Intent(this, TranslateActivity.class);
+            getWindow().setExitTransition(TransitionInflater.from(this).inflateTransition(R.transition.exit_transition));
+            getWindow().setEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.enter_transition));
+            startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this, view1, "shareName").toBundle());
+        } else if (v == startExplodePage) {
+            View view1 = findViewById(R.id.first);
+            Intent intent = new Intent(this, Translate2Activity.class);
+            getWindow().setExitTransition(TransitionInflater.from(this).inflateTransition(R.transition.exit_explode_transition));
+            getWindow().setEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.enter_explode_transition));
+            startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this, view1, "shareName").toBundle());
+        } else if (v == image) {
+            Intent intent = new Intent(this, ImageActivity.class);
+            getWindow().setEnterTransition(null);
+            getWindow().setExitTransition(null);
+            startActivity(intent, ActivityOptionsCompat.makeScaleUpAnimation(image,
+                    image.getWidth() / 2, image.getHeight() / 2, image.getWidth(), image.getHeight()).toBundle());
         }
     }
 
