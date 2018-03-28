@@ -75,14 +75,14 @@
 
             <Button
                 android:id="@+id/startSlidePage"
-                android:text="Slide新页面"
+                android:text="Slide"
                 android:textAllCaps="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/startExplodePage"
-                android:text="Explode新页面"
+                android:text="Explode"
                 android:textAllCaps="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

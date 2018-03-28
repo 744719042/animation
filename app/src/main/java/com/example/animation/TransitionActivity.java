@@ -11,10 +11,13 @@ import android.transition.Scene;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
+import android.transition.TransitionSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import com.example.animation.transition.ImageTransition;
 
 public class TransitionActivity extends AppCompatActivity implements View.OnClickListener {
     private FrameLayout mContainer;
@@ -25,6 +28,7 @@ public class TransitionActivity extends AppCompatActivity implements View.OnClic
     private Button explode;
     private Button startSlidePage;
     private Button startExplodePage;
+    private Button startShapePage;
     private ImageView image;
     private boolean isScene2 = false;
     private boolean isGone = false;
@@ -99,12 +103,14 @@ public class TransitionActivity extends AppCompatActivity implements View.OnClic
             Intent intent = new Intent(this, SlideTransiteActivity.class);
             getWindow().setExitTransition(TransitionInflater.from(this).inflateTransition(R.transition.exit_transition));
             getWindow().setEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.enter_transition));
+            view1.setTag(300 * 3f);
             startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this, view1, "shareName").toBundle());
         } else if (v == startExplodePage) {
             View view1 = findViewById(R.id.first);
             Intent intent = new Intent(this, ExplodeTransitionActivity.class);
             getWindow().setExitTransition(TransitionInflater.from(this).inflateTransition(R.transition.exit_explode_transition));
             getWindow().setEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.enter_explode_transition));
+            view1.setTag(300 * 3f);
             startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this, view1, "shareName").toBundle());
         } else if (v == image) {
 //            Intent intent = new Intent(this, ImageActivity.class);
