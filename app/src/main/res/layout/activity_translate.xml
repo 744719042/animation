@@ -10,7 +10,7 @@
         android:transitionName="shareName"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/round_red"
+        android:background="@drawable/rectangle_red"
         android:layout_width="100dp"
         android:layout_height="100dp" />
 

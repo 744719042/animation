@@ -3,7 +3,7 @@ package com.example.animation;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class TranslateActivity extends AppCompatActivity {
+public class SlideTransiteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

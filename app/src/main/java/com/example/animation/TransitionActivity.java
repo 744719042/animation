@@ -96,22 +96,28 @@ public class TransitionActivity extends AppCompatActivity implements View.OnClic
             processViews();
         } else if (v == startSlidePage) {
             View view1 = findViewById(R.id.first);
-            Intent intent = new Intent(this, TranslateActivity.class);
+            Intent intent = new Intent(this, SlideTransiteActivity.class);
             getWindow().setExitTransition(TransitionInflater.from(this).inflateTransition(R.transition.exit_transition));
             getWindow().setEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.enter_transition));
             startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this, view1, "shareName").toBundle());
         } else if (v == startExplodePage) {
             View view1 = findViewById(R.id.first);
-            Intent intent = new Intent(this, Translate2Activity.class);
+            Intent intent = new Intent(this, ExplodeTransitionActivity.class);
             getWindow().setExitTransition(TransitionInflater.from(this).inflateTransition(R.transition.exit_explode_transition));
             getWindow().setEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.enter_explode_transition));
             startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this, view1, "shareName").toBundle());
         } else if (v == image) {
-            Intent intent = new Intent(this, ImageActivity.class);
-            getWindow().setEnterTransition(null);
-            getWindow().setExitTransition(null);
-            startActivity(intent, ActivityOptionsCompat.makeScaleUpAnimation(image,
-                    image.getWidth() / 2, image.getHeight() / 2, image.getWidth(), image.getHeight()).toBundle());
+//            Intent intent = new Intent(this, ImageActivity.class);
+//            getWindow().setEnterTransition(null);
+//            getWindow().setExitTransition(null);
+//            startActivity(intent);
+//            startActivity(intent, ActivityOptionsCompat.makeScaleUpAnimation(image,
+//                    image.getWidth() / 2, image.getHeight() / 2, image.getWidth(), image.getHeight()).toBundle());
+
+            Intent intent = new Intent(this, FadeTransitionActivity.class);
+            getWindow().setExitTransition(TransitionInflater.from(this).inflateTransition(R.transition.exit_fade_transition));
+            getWindow().setEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.enter_fade_transition));
+            startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this, image, "shareName").toBundle());
         }
     }
 

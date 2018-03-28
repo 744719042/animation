@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionInflater;
 
-public class Translate2Activity extends AppCompatActivity {
+public class ExplodeTransitionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

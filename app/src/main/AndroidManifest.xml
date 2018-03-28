@@ -21,9 +21,11 @@
         <activity android:name=".TransitionActivity" />
         <activity android:name=".CustomAnimationActivity" />
         <activity android:name=".MultiPropertyActivity" />
-        <activity android:name=".TranslateActivity" />
-        <activity android:name=".Translate2Activity" />
-        <activity android:name=".ImageActivity"></activity>
+        <activity android:name=".SlideTransiteActivity" />
+        <activity android:name=".ExplodeTransitionActivity" />
+        <activity android:name=".ImageActivity"
+            android:theme="@style/NoBackground" />
+        <activity android:name=".FadeTransitionActivity" />
     </application>
 
 </manifest>
