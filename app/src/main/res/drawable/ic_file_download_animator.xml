@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_file_download">
+
+    <target
+        android:animation="@animator/vertical_translate"
+        android:name="download">
+    </target>
+
+    <target
+        android:animation="@animator/horizontal_translate"
+        android:name="diskCache" />
+
+</animated-vector>

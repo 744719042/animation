@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button multiProperty;
     private Button transition;
     private Button manual;
+    private Button vector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transition.setOnClickListener(this);
         manual = (Button) findViewById(R.id.manual);
         manual.setOnClickListener(this);
+        vector = (Button) findViewById(R.id.vector);
+        vector.setOnClickListener(this);
     }
 
     @Override
@@ -52,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if (v == manual) {
             Intent intent = new Intent(this, AlbumActivity.class);
+            startActivity(intent);
+        } else if (v == vector) {
+            Intent intent = new Intent(this, VectorActivity.class);
             startActivity(intent);
         }
     }

@@ -23,13 +23,14 @@
         <activity android:name=".MultiPropertyActivity" />
         <activity android:name=".SlideTransiteActivity" />
         <activity android:name=".ExplodeTransitionActivity" />
-        <activity android:name=".ImageActivity"
+        <activity
+            android:name=".ImageActivity"
             android:label="图片详情页" />
         <activity android:name=".FadeTransitionActivity" />
-        <activity android:name=".AlbumActivity"
-            android:label="相册展示页">
-
-        </activity>
+        <activity
+            android:name=".AlbumActivity"
+            android:label="相册展示页"></activity>
+        <activity android:name=".VectorActivity"></activity>
     </application>
 
 </manifest>
