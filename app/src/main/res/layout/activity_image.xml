@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/image"
-        android:src="@drawable/beach"
+        android:src="@drawable/dog"
         android:layout_gravity="center"
         android:scaleType="fitCenter"
         android:layout_width="match_parent"

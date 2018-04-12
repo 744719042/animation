@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button animator;
     private Button multiProperty;
     private Button transition;
+    private Button manual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         multiProperty.setOnClickListener(this);
         transition = (Button) findViewById(R.id.transitionAnimator);
         transition.setOnClickListener(this);
+        manual = (Button) findViewById(R.id.manual);
+        manual.setOnClickListener(this);
     }
 
     @Override
@@ -46,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if (v == transition) {
             Intent intent = new Intent(this, TransitionActivity.class);
+            startActivity(intent);
+        } else if (v == manual) {
+            Intent intent = new Intent(this, AlbumActivity.class);
             startActivity(intent);
         }
     }

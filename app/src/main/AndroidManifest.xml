@@ -24,8 +24,12 @@
         <activity android:name=".SlideTransiteActivity" />
         <activity android:name=".ExplodeTransitionActivity" />
         <activity android:name=".ImageActivity"
-            android:theme="@style/NoBackground" />
+            android:label="图片详情页" />
         <activity android:name=".FadeTransitionActivity" />
+        <activity android:name=".AlbumActivity"
+            android:label="相册展示页">
+
+        </activity>
     </application>
 
 </manifest>
