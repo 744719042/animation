@@ -1,0 +1,5 @@
+<users id='root'>
+  <user name='zhangsan' age='16' />
+  <user name='lisi' age='30' />
+  <user name='wangwu' age='45' />
+</users>

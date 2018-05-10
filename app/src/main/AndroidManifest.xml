@@ -25,6 +25,7 @@
         <activity android:name=".ExplodeTransitionActivity" />
         <activity
             android:name=".ImageActivity"
+            android:theme="@style/TranslucentTheme"
             android:label="图片详情页" />
         <activity android:name=".FadeTransitionActivity" />
         <activity

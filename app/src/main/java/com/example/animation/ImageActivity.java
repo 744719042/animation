@@ -2,6 +2,7 @@ package com.example.animation;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.graphics.Rect;
@@ -53,9 +54,12 @@ public class ImageActivity extends AppCompatActivity {
         PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, ratio, 1.0f);
         PropertyValuesHolder translateX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, start.left, end.left);
         PropertyValuesHolder translateY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, start.top, end.top);
-        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(target, scaleX, scaleY, translateX, translateY);
-        animator.setDuration(1000);
-        animator.start();
+        ObjectAnimator scaleAnimator = ObjectAnimator.ofPropertyValuesHolder(target, scaleX, scaleY);
+        ObjectAnimator translateAnimator = ObjectAnimator.ofPropertyValuesHolder(target, translateX, translateY);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(scaleAnimator).with(translateAnimator);
+        animatorSet.setDuration(300);
+        animatorSet.start();
     }
 
     @Override
@@ -75,10 +79,13 @@ public class ImageActivity extends AppCompatActivity {
         PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.0f, ratio);
         PropertyValuesHolder translateX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, end.left, start.left);
         PropertyValuesHolder translateY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, end.top, start.top);
-        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(imageView, scaleX, scaleY, translateX, translateY);
-        animator.setDuration(1000);
-        animator.start();
-        animator.addListener(new AnimatorListenerAdapter() {
+        ObjectAnimator scaleAnimator = ObjectAnimator.ofPropertyValuesHolder(imageView, scaleX, scaleY);
+        ObjectAnimator translateAnimator = ObjectAnimator.ofPropertyValuesHolder(imageView, translateX, translateY);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(scaleAnimator).with(translateAnimator);
+        animatorSet.setDuration(300);
+        animatorSet.start();
+        animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 ImageActivity.super.finish();
