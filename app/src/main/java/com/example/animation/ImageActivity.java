@@ -7,7 +7,6 @@ import android.animation.PropertyValuesHolder;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -16,14 +15,14 @@ public class ImageActivity extends AppCompatActivity {
     private static final String TAG = "ImageActivity";
     public static final String ARG_IMAGE_BOUNDS = "arg_image_bounds";
     private ImageView imageView;
-    private Rect startBounds;
-    private Rect endBounds;
+    private Rect start;
+    private Rect end;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
-        startBounds = getIntent().getParcelableExtra(ARG_IMAGE_BOUNDS);
+        start = getIntent().getParcelableExtra(ARG_IMAGE_BOUNDS);
         imageView = (ImageView) findViewById(R.id.image);
         imageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
@@ -35,8 +34,8 @@ public class ImageActivity extends AppCompatActivity {
                 target.top = imageView.getTop();
                 target.bottom = target.top + height;
                 target.right = target.left + width;
-                startAnimation(imageView, startBounds, target);
-                endBounds = target;
+                startAnimation(imageView, start, target);
+                end = target;
                 imageView.getViewTreeObserver().removeOnPreDrawListener(this);
                 return true;
             }
@@ -44,41 +43,19 @@ public class ImageActivity extends AppCompatActivity {
     }
 
     private void startAnimation(View target, Rect start, Rect end) {
-        ViewWrapper view = new ViewWrapper(target);
-        PropertyValuesHolder width = PropertyValuesHolder.ofInt("width", start.width(), end.width());
-        PropertyValuesHolder height = PropertyValuesHolder.ofInt("height", start.height(), end.height());
-        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(view, width, height);
-        animator.setDuration(300);
+        float ratioWidth = start.width() * 1.0f / end.width();
+        float ratioHeight = start.height() * 1.0f / end.height();
+        float ratio = Math.max(ratioHeight, ratioWidth);
+
+        target.setPivotX(1.0f * start.centerX() / end.width());
+        target.setPivotY(1.0f * start.centerY() / end.height());
+        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, ratio, 1.0f);
+        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, ratio, 1.0f);
+        PropertyValuesHolder translateX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, start.left, end.left);
+        PropertyValuesHolder translateY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, start.top, end.top);
+        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(target, scaleX, scaleY, translateX, translateY);
+        animator.setDuration(1000);
         animator.start();
-    }
-
-    private static class ViewWrapper {
-        private View view;
-
-        public ViewWrapper(View view) {
-            this.view = view;
-        }
-
-        public void setWidth(int width) {
-            Log.d(TAG, "width = " + width);
-            view.getLayoutParams().width = width;
-            view.requestLayout();
-        }
-
-        public int getWidth() {
-            return view.getWidth();
-        }
-
-        public void setHeight(int height) {
-            Log.d(TAG, "height = " + height);
-
-            view.getLayoutParams().height = height;
-            view.requestLayout();
-        }
-
-        public int getHeight() {
-            return view.getHeight();
-        }
     }
 
     @Override
@@ -87,11 +64,20 @@ public class ImageActivity extends AppCompatActivity {
     }
 
     private void playExitAnimator() {
-        ViewWrapper view = new ViewWrapper(imageView);
-        PropertyValuesHolder width = PropertyValuesHolder.ofInt("width", endBounds.width(), startBounds.width());
-        PropertyValuesHolder height = PropertyValuesHolder.ofInt("height", endBounds.height(), startBounds.height());
-        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(view, width, height);
-        animator.setDuration(300);
+        float ratioWidth = start.width() * 1.0f / end.width();
+        float ratioHeight = start.height() * 1.0f / end.height();
+        float ratio = Math.max(ratioHeight, ratioWidth);
+
+        imageView.setPivotX(1.0f * start.centerX() / end.width());
+        imageView.setPivotY(1.0f * start.centerY() / end.height());
+
+        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X,  1.0f, ratio);
+        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.0f, ratio);
+        PropertyValuesHolder translateX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, end.left, start.left);
+        PropertyValuesHolder translateY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, end.top, start.top);
+        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(imageView, scaleX, scaleY, translateX, translateY);
+        animator.setDuration(1000);
+        animator.start();
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -99,6 +85,5 @@ public class ImageActivity extends AppCompatActivity {
                 ImageActivity.super.overridePendingTransition(0, 0);
             }
         });
-        animator.start();
     }
 }
