@@ -1,3 +1,11 @@
+import org.w3c.dom.Element
+import org.xml.sax.Attributes
+import org.xml.sax.SAXException
+import org.xml.sax.helpers.DefaultHandler
+
+import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.parsers.SAXParserFactory
+
 apply plugin: 'com.android.application'
 
 android {
@@ -28,4 +36,121 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+}
+
+class Book {
+    int id
+    double price
+    String author
+    String name
+
+
+    @Override
+    String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", price=" + price +
+                ", author='" + author + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
+}
+
+task saxXML {
+    def saxFactory = SAXParserFactory.newInstance()
+    def saxParser = saxFactory.newSAXParser()
+    def list = []
+    def book
+    def handler = new DefaultHandler() {
+        @Override
+        void startDocument() throws SAXException {
+            super.startDocument()
+        }
+
+        @Override
+        void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+            super.startElement(uri, localName, qName, attributes)
+            if (qName.equals("book")) {
+                book = new Book()
+                book.id = Integer.parseInt(attributes.getValue("id"))
+                book.author = attributes.getValue("author")
+                book.price = Double.parseDouble(attributes.getValue("price"))
+            }
+        }
+
+        @Override
+        void characters(char[] ch, int start, int length) throws SAXException {
+            super.characters(ch, start, length)
+            if (book != null) {
+                book.name = new String(ch, start, length)
+            }
+        }
+
+        @Override
+        void endElement(String uri, String localName, String qName) throws SAXException {
+            super.endElement(uri, localName, qName)
+            if ("book".equals(qName)) {
+                list.add(book)
+                book = null
+            }
+        }
+
+        @Override
+        void endDocument() throws SAXException {
+            super.endDocument()
+        }
+    }
+
+    saxParser.parse(new File("books.xml"), handler)
+}
+
+task domXML {
+    def domParser = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+    def xmlFile = new File("books.xml")
+    def document = domParser.parse(xmlFile)
+    document.getDocumentElement().normalize()
+    def nodeList = document.getElementsByTagName("book")
+    def list = []
+
+    for (node in nodeList) {
+        def element = (Element) node
+        def book = new Book()
+        book.id = Integer.parseInt(element.getAttribute("id"))
+        book.author = element.getAttribute("author")
+        book.price = Double.parseDouble(element.getAttribute("price"))
+        book.name = element.firstChild.getTextContent()
+        list.add(book)
+    }
+}
+
+task slurperXML {
+    println "Slurper XML"
+    def books = new XmlSlurper().parse(new File("books.xml"))
+
+    for (book in books.book) {
+//        println "$book ,price is ${book.@price} yuan"
+    }
+}
+
+task testFile {
+    def file = file("proguard-rules.pro")
+    println file.text
+
+    file.eachLine {
+        println it
+    }
+
+    file.filterLine {
+        it.contains("-keep")
+    }.writeTo(new PrintWriter(System.out))
+}
+
+task makeUpXML {
+    def writer = new FileWriter("users.xml")
+    def makeup = new groovy.xml.MarkupBuilder(writer)
+    makeup.users(id: "root") {
+        user(name: "zhangsan", age: 16)
+        user(name: "lisi", age: 30)
+        user(name: "wangwu", age: 45)
+    }
 }

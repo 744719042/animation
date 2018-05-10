@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<books>
+    <book id="100" price="72" author="xys">Android Heros</book>
+    <book id="200" price="50" author="ryg">Android Develop</book>
+    <book id="300" price="69" author="lg">Crazy Android</book>
+</books>
