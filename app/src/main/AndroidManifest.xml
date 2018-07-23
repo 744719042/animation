@@ -25,13 +25,14 @@
         <activity android:name=".ExplodeTransitionActivity" />
         <activity
             android:name=".ImageActivity"
-            android:theme="@style/TranslucentTheme"
-            android:label="图片详情页" />
+            android:label="图片详情页"
+            android:theme="@style/TranslucentTheme" />
         <activity android:name=".FadeTransitionActivity" />
         <activity
             android:name=".AlbumActivity"
-            android:label="相册展示页"></activity>
-        <activity android:name=".VectorActivity"></activity>
+            android:label="相册展示页" />
+        <activity android:name=".VectorActivity" />
+        <activity android:name=".FontActivity"></activity>
     </application>
 
 </manifest>

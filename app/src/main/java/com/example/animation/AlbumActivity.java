@@ -1,79 +1,52 @@
 package com.example.animation;
 
-import android.content.Intent;
-import android.graphics.Rect;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
-public class AlbumActivity extends AppCompatActivity {
-    private ImageView imageView;
-    private ImageView imageView2;
-    private ImageView imageView3;
+public class AlbumActivity extends AppCompatActivity implements View.OnClickListener {
+    private RecyclerView mPictures;
+    private RecyclerView mAlbums;
+    private FrameLayout mAlbumLayout;
+    private LinearLayout mAlbumTitle;
+    private LayoutInflater mInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
-        imageView = (ImageView) findViewById(R.id.image);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AlbumActivity.this, ImageActivity.class);
-                int width = imageView.getWidth();
-                int height = imageView.getHeight();
+        mInflater = LayoutInflater.from(this);
+        mPictures = (RecyclerView) findViewById(R.id.recycle_view);
+        mAlbums = (RecyclerView) findViewById(R.id.album_recycler_view);
+        mAlbumLayout = (FrameLayout) findViewById(R.id.album_layout);
+        mAlbumTitle = (LinearLayout) mInflater.inflate(R.layout.custom_album_title, null);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(mAlbumTitle, new ActionBar.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER));
+        mAlbumTitle.setOnClickListener(this);
 
-                Rect target = new Rect();
-                target.left = imageView.getLeft();
-                target.top = imageView.getTop();
-                target.bottom = target.top + height;
-                target.right = target.left + width;
+        queryAlbums();
+    }
 
-                intent.putExtra(ImageActivity.ARG_IMAGE_BOUNDS, target);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-            }
-        });
+    private void queryAlbums() {
 
-        imageView2 = (ImageView) findViewById(R.id.image2);
-        imageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AlbumActivity.this, ImageActivity.class);
-                int width = imageView2.getWidth();
-                int height = imageView2.getHeight();
+    }
 
-                Rect target = new Rect();
-                target.left = imageView2.getLeft();
-                target.top = imageView2.getTop();
-                target.bottom = target.top + height;
-                target.right = target.left + width;
-
-                intent.putExtra(ImageActivity.ARG_IMAGE_BOUNDS, target);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-            }
-        });
-
-        imageView3 = (ImageView) findViewById(R.id.image3);
-        imageView3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AlbumActivity.this, ImageActivity.class);
-                int width = imageView3.getWidth();
-                int height = imageView3.getHeight();
-
-                Rect target = new Rect();
-                target.left = imageView3.getLeft();
-                target.top = imageView3.getTop();
-                target.bottom = target.top + height;
-                target.right = target.left + width;
-
-                intent.putExtra(ImageActivity.ARG_IMAGE_BOUNDS, target);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-            }
-        });
+    @Override
+    public void onClick(View v) {
+        if (v == mAlbumTitle) {
+            TranslateAnimation animation = (TranslateAnimation) AnimationUtils.loadAnimation(this, R.anim.show_album);
+            mAlbumLayout.setVisibility(View.VISIBLE);
+            mAlbumLayout.startAnimation(animation);
+        }
     }
 }

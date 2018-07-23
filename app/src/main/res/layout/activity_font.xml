@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FontActivity">
+
+    <com.example.animation.widget.FontView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.example.animation.widget.MyTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.example.animation.widget.CustomTextView
+        android:id="@+id/custom_text_view"
+        android:text="一江春水向东流"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

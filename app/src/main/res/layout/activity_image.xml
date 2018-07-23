@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.animation.ImageActivity">
 
-    <ImageView
+    <com.example.animation.widget.PhotoView
         android:id="@+id/image"
         android:src="@drawable/dog"
         android:layout_gravity="center"
-        android:scaleType="fitCenter"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:scaleType="matrix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

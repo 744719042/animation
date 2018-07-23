@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button transition;
     private Button manual;
     private Button vector;
+    private Button font;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         manual.setOnClickListener(this);
         vector = (Button) findViewById(R.id.vector);
         vector.setOnClickListener(this);
+        font = (Button) findViewById(R.id.font);
+        font.setOnClickListener(this);
     }
 
     @Override
@@ -58,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if (v == vector) {
             Intent intent = new Intent(this, VectorActivity.class);
+            startActivity(intent);
+        } else if (v == font) {
+            Intent intent = new Intent(this, FontActivity.class);
             startActivity(intent);
         }
     }

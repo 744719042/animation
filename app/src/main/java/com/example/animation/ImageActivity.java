@@ -1,7 +1,5 @@
 package com.example.animation;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -62,35 +60,21 @@ public class ImageActivity extends AppCompatActivity {
         animatorSet.start();
     }
 
-    @Override
-    public void finish() {
-        playExitAnimator();
-    }
+//    @Override
+//    public void finish() {
+//        playExitAnimator();
+//    }
 
     private void playExitAnimator() {
         float ratioWidth = start.width() * 1.0f / end.width();
         float ratioHeight = start.height() * 1.0f / end.height();
         float ratio = Math.max(ratioHeight, ratioWidth);
 
-        imageView.setPivotX(1.0f * start.centerX() / end.width());
-        imageView.setPivotY(1.0f * start.centerY() / end.height());
 
-        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X,  1.0f, ratio);
-        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.0f, ratio);
-        PropertyValuesHolder translateX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, end.left, start.left);
-        PropertyValuesHolder translateY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, end.top, start.top);
-        ObjectAnimator scaleAnimator = ObjectAnimator.ofPropertyValuesHolder(imageView, scaleX, scaleY);
-        ObjectAnimator translateAnimator = ObjectAnimator.ofPropertyValuesHolder(imageView, translateX, translateY);
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.play(scaleAnimator).with(translateAnimator);
-        animatorSet.setDuration(300);
-        animatorSet.start();
-        animatorSet.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                ImageActivity.super.finish();
-                ImageActivity.super.overridePendingTransition(0, 0);
-            }
-        });
+    }
+
+    private void onExitFinished() {
+        super.finish();
+        super.overridePendingTransition(0, 0);
     }
 }
